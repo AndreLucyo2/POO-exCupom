@@ -5,8 +5,8 @@
  */
 package Programa;
 
-import static Programa.Program.criaEmpresa;
-import static Programa.Program.criarProduto;
+import static Programa.Servicos.criaEmpresa;
+import static Programa.Servicos.criarProduto;
 import bdTeste.BancoDadosFake;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,7 +36,7 @@ public class TesteGeral
 	System.out.println(dataAtual);
 
 	criaEmpresa();
-	criarProduto();
+	criarProduto(3);
 
 	//TESTE DE STRING:
 	String texto = "001 - " + String.format("%-15.15s", "123");
@@ -107,7 +107,5 @@ public class TesteGeral
 big decimal : https://www.devmedia.com.br/java-bigdecimal-trabalhando-com-mais-precisao/30286
 
 String.format : https://dzone.com/articles/java-string-format-examples
-
-
 
  */
