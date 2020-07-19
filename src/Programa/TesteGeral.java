@@ -5,8 +5,8 @@
  */
 package Programa;
 
-import static Programa.Servicos.criaEmpresa;
-import static Programa.Servicos.criarProduto;
+import static Entidades.Controller.EmpresaController.criarEmpresa;
+import static Entidades.Controller.ProdutoController.criarProduto;
 import bdTeste.BancoDadosFake;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,8 +35,9 @@ public class TesteGeral
 	//teste:
 	System.out.println(dataAtual);
 
-	criaEmpresa();
-	criarProduto(3);
+	//Teste:
+	criarEmpresa();
+	criarProduto();
 
 	//TESTE DE STRING:
 	String texto = "001 - " + String.format("%-15.15s", "123");

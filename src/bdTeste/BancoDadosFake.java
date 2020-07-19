@@ -6,6 +6,7 @@
 package bdTeste;
 
 import Entidades.Produto;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -22,15 +23,15 @@ public class BancoDadosFake
 	produto = new ArrayList<Produto>();
 
 	//criando elementos
-	Produto produto1 = new Produto(1, "COXA SOBRE COXA", 234, "KG", 8.50f);
-	Produto produto2 = new Produto(2, "ACUCAR NORDESTE", 456, "UN", 5.43f);
-	Produto produto3 = new Produto(3, "SAL LEBRE ", 221, "UN", 1.20f);
-	Produto produto4 = new Produto(4, "VINHO DO PORTO", 876, "UN", 95.50f);
+	Produto produto1 = new Produto(1, "COXA SOBRE COXA", 234, "KG",new BigDecimal(8.50f));
+	Produto produto2 = new Produto(2, "ACUCAR NORDESTE", 456, "UN",new BigDecimal(5.50f));
+	Produto produto3 = new Produto(3, "SAL LEBRE ", 221, "UN",new BigDecimal(1.10f));
+	Produto produto4 = new Produto(4, "VINHO DO PORTO", 876, "UN",new BigDecimal(88.56f));
 
-	Produto produto5 = new Produto(5, "MACARRÃO", 234, "UN", 3.50f);
-	Produto produto6 = new Produto(6, "BATATA", 456, "KG", 2.43f);
-	Produto produto7 = new Produto(7, "TOMATE ", 221, "KG", 4.20f);
-	Produto produto8 = new Produto(8, "REPOLHO", 876, "UN", 3.50f);
+	Produto produto5 = new Produto(5, "MACARRÃO", 234, "UN", new BigDecimal(2.33f));
+	Produto produto6 = new Produto(6, "BATATA", 456, "KG",new BigDecimal(2.50f));
+	Produto produto7 = new Produto(7, "TOMATE ", 221, "KG",new BigDecimal(6.74f));
+	Produto produto8 = new Produto(8, "REPOLHO", 876, "UN", new BigDecimal(4.00f));
 
 	//Adiciona Elementos na lista
 	produto.add(produto1);

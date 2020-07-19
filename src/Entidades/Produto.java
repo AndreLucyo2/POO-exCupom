@@ -1,5 +1,6 @@
 package Entidades;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /*
@@ -17,14 +18,14 @@ public class Produto {
     private String nome;
     private int codigo;
     private String unidade;
-    private Float preco;
+    private BigDecimal preco;
     private ArrayList<ItenVenda> itensVenda;
 
     public Produto()
     {
     }
 
-    public Produto(int id, String nome, int codigo, String unidade, Float preco)
+    public Produto(int id, String nome, int codigo, String unidade, BigDecimal preco)
     {
 	this.id = id;
 	this.nome = nome;
@@ -66,11 +67,11 @@ public class Produto {
         this.unidade = unidade;
     }
 
-    public Float getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(Float preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 

@@ -18,6 +18,25 @@ public class FormaPagamento {
     private String nome;
     private ArrayList<PagamentoVenda> pagamentosVenda;
 
+    public FormaPagamento()
+    {
+    }
+
+    public FormaPagamento(int id, String nome)
+    {
+	this.id = id;
+	this.nome = nome;
+    }
+    
+    
+
+    public FormaPagamento(int id, String nome, ArrayList<PagamentoVenda> pagamentosVenda)
+    {
+	this.id = id;
+	this.nome = nome;
+	this.pagamentosVenda = pagamentosVenda;
+    }
+
     public int getId() {
         return id;
     }

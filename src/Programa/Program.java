@@ -1,13 +1,15 @@
 package Programa;
 
-import Entidades.ItenVenda;
+import static Entidades.Controller.EmpresaController.getEmpresa;
+import static Entidades.Controller.FormaPagamentoController.criarFormPagto;
+import static Entidades.Controller.PagamentoVendaController.criarPagamentoVenda;
+import static Entidades.Controller.VendaController.criarVenda;
+import Entidades.FormaPagamento;
+import Entidades.PagamentoVenda;
 import Entidades.Venda;
-import static Programa.Servicos.criaEmpresa;
-import static Programa.Servicos.criarItemVenda;
-import static Programa.Servicos.criarProduto;
-import static Programa.Servicos.criarVenda;
 import static Programa.Servicos.imprimirCupom;
 import bdTeste.BancoDadosFake;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -24,6 +26,18 @@ import java.util.Scanner;
 public class Program
 {
 
+    /*
+    1 - definir a empresa
+    2 - abre a venda
+    3 - adiciona itens a venda
+	a - produto:nome/cod/unid/preço
+	b - quantidade/peso
+	c - preço do item (qtde * preço produto)
+    
+    4 - definir a forma de pagamento (Cart/Diheiro)
+    5 - pagamento da venda:
+	a - valor pago
+     */
     public static void main(String[] args) throws ParseException
     {
 	//Instancia banco de dados falso para teste
@@ -35,23 +49,28 @@ public class Program
 	System.out.println("============               VENDA             ===================");
 	System.out.println("================================================================");
 
-	//VENDA:
-	Venda venda = new Venda();
-	venda = criarVenda(criaEmpresa());
-
+	//só para limitar o for
 	System.out.print("Informe o numero de itens da venda: ");
 	int numItens = scan.nextInt();
 
-	ArrayList<ItenVenda> itens = new ArrayList<ItenVenda>();
-	for (int i = 0; i < numItens; i++)
-	{
-	    System.out.println("------------------------------------------------------------");
-	    ItenVenda item = new ItenVenda();
-	    item = criarItemVenda(venda, criarProduto(i));
-	    itens.add(item);
-	}
+	//ABRIR A VENDA:
+	Venda venda = new Venda();
+	venda = criarVenda(getEmpresa(), numItens);
 
-	venda.setItens(itens);
+	//FORMA DE PAGAMENTO
+	System.out.print("Qual a forma de pagameto: [d] dinheiro [c]cartão ");
+	String cr = scan.next();
+	FormaPagamento frmPagot = criarFormPagto(cr);
+
+	//PAGAMENTO DA VENDA
+	System.out.print("Informe valor recebido: ");
+	BigDecimal vlRec = new BigDecimal(scan.next());
+	PagamentoVenda pagtoVend = criarPagamentoVenda(venda, frmPagot, vlRec);
+
+	//ADICIONAR PAGAMENTO:
+	ArrayList<PagamentoVenda> pagamentos = new ArrayList<PagamentoVenda>();
+	pagamentos.add(pagtoVend);
+	venda.setPagamentos(pagamentos);	
 
 	//gerar Cupom
 	imprimirCupom(venda);

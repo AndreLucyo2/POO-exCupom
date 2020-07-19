@@ -5,17 +5,9 @@
  */
 package Programa;
 
-import Entidades.Empresa;
-import Entidades.ItenVenda;
-import Entidades.Produto;
 import Entidades.Venda;
-import bdTeste.BancoDadosFake;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -23,8 +15,13 @@ import java.util.logging.Logger;
  */
 public class Servicos
 {
+
     public static void imprimirCupom(Venda venda)
     {
+	DecimalFormat decFormat = new DecimalFormat("##,##0.00");
+	BigDecimal vltotalVenda = new BigDecimal(0.00);
+	BigDecimal vlTotalIten = new BigDecimal(0.00);
+
 	System.out.println("\n\n\n");
 	System.out.println("================================================================");
 	System.out.println("============               CUPOM             ===================");
@@ -55,148 +52,29 @@ public class Servicos
 	    String descricao = String.format("%-20.20s", venda.getItens().get(i).getProduto().getNome() + "");
 	    String qtde = String.format("%6.6s", venda.getItens().get(i).getQuantidade() + "");
 	    String un = String.format("%4.4s", venda.getItens().get(i).getProduto().getUnidade());
-	    String vlUnt = String.format("%11.11s", venda.getItens().get(i).getProduto().getPreco() + "");
-	    String vlTotal = String.format("%10.10s", venda.getItens().get(i).getQuantidade() * venda.getItens().get(i).getProduto().getPreco() + "");
+	    String vlUnt = String.format("%11.11s", venda.getItens().get(i).getProduto().getPreco().setScale(2, BigDecimal.ROUND_HALF_EVEN) + "");
 
-	    System.out.println(codigo + descricao + qtde + un + vlUnt + vlTotal);
+	    vlTotalIten = venda.getItens().get(i).getPrecoUnitario().setScale(2, BigDecimal.ROUND_HALF_EVEN);
+	    String strTotalIten = String.format("%10.10s", vlTotalIten + "");
+	    vltotalVenda = vltotalVenda.add(vlTotalIten);
+
+	    System.out.println(codigo + descricao + qtde + un + vlUnt + strTotalIten);
 	    System.out.println("----------------------------------------------------------------");
 
 	}
+
+	String frmPagto = venda.getPagamentos().get(0).getFormaPagto().getNome();
+	BigDecimal vlpago = venda.getPagamentos().get(0).getValorPago();
+	BigDecimal troco = vltotalVenda.subtract(vlpago);
+	System.out.println("===============================================================");
+	System.out.println("===============================================================");
+	System.out.println("QTD. TOTAL DE ITENS                        " + venda.getItens().size());
+	System.out.println("VALOR TOTAL                              R$" + vltotalVenda.setScale(2, BigDecimal.ROUND_HALF_EVEN));
+	System.out.println("----------------------------------------------------------------");
+	System.out.println("FORMA DE PAGAMENTO                         " + frmPagto);
+	System.out.println("VALOR PAGO                               R$" + vlpago.setScale(2, BigDecimal.ROUND_HALF_EVEN));
+	System.out.println("TROCO                                    R$" + troco.setScale(2, BigDecimal.ROUND_HALF_EVEN));
+	System.out.println("----------------------------------------------------------------");
     }
 
-    /**
-     * Metodo para solicitar dados para cadastrar uma Item da Venda
-     *
-     * @return
-     */
-    public static ItenVenda criarItemVenda(Venda venda, Produto produto)
-    {
-	Scanner scan = new Scanner(System.in);
-	ItenVenda item = new ItenVenda();
-
-	//ID FIXO
-	item.setId(0);
-
-	System.out.print("Quantidade:  ");
-	item.setQuantidade(scan.nextFloat());
-
-//	System.out.print("Unidade:     ");
-//	item.setUnidade(scan.next());
-
-	item.setVenda(venda);
-	item.setProduto(produto);
-
-	return item;
-    }
-
-    /**
-     * Metodo para solicitar dados para cadastrar uma venda
-     *
-     * @return
-     */
-    public static Venda criarVenda(Empresa empresa)
-    {
-	Venda vend = new Venda();
-	vend.setEmpresa(empresa);
-	vend.setId(1);
-	vend.setNumero(456);
-	vend.setSerie("SERgjgjjgdjtyty345");
-	vend.setChave("KEYtyythghxghftfyrt123");
-
-	try
-	{
-	    SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-	    String dataAtual = sdf1.format(Calendar.getInstance().getTime());
-
-	    vend.setDataEmissao(sdf1.parse("30/03/2020 00:00"));
-	    vend.setDataProtocolo(sdf1.parse(dataAtual));
-
-	}
-	catch (ParseException ex)
-	{
-	    Logger.getLogger(Venda.class.getName()).log(Level.SEVERE, null, ex);
-	}
-
-	return vend;
-    }
-
-    /**
-     * Metodo para solicitar dados para cadastrar uma empresa
-     *
-     * @return
-     */
-    public static Empresa criaEmpresa()
-    {
-//	Scanner scan = new Scanner(System.in);
-//	Empresa empresa = new Empresa();
-//
-//	//ID FIXO
-//	empresa.setId(0);
-//
-//	System.out.println("\n==================================================");
-//	System.out.println("======      CADASTRANDO EMPRESA        ===========");
-//	System.out.println("==================================================");
-//
-//	System.out.print("Nome:    ");
-//	empresa.setNome(scan.next());
-//
-//	System.out.print("CNPJ:    ");
-//	empresa.setCnpj(scan.next());
-//
-//	System.out.print("IE:      ");
-//	empresa.setIe(scan.next());
-//
-//	System.out.print("Rua:     ");
-//	empresa.setLogradouro(scan.next());
-//
-//	System.out.print("Numero:  ");
-//	empresa.setNumero(scan.nextInt());
-//
-//	System.out.print("Bairro:  ");
-//	empresa.setBairro(scan.next());
-
-	//Teste:
-	Empresa empresa1 = new Empresa(1, "MERCADINHO", "91.384.685/0001-72", "123123", "RUA AFONSO CAMPOS", 123, "CENTRO", null);
-
-	return empresa1;
-
-    }
-
-    /**
-     * Metodo para solicitar dados para cadastrar um produto
-     *
-     * @return
-     */
-    public static Produto criarProduto(int id)
-    {
-//	Scanner scan = new Scanner(System.in);
-//	Produto prod = new Produto();
-//
-//	//ID FIXO
-//	prod.setId(0);
-//
-//	System.out.println("\n==================================================");
-//	System.out.println("======      CADASTRANDO PRODUTO        ===========");
-//	System.out.println("==================================================");
-//
-//	System.out.print("Codigo:    ");
-//	prod.setCodigo(scan.nextInt());
-//
-//	System.out.print("Nome:      ");
-//	prod.setNome(scan.next());
-//
-//	System.out.print("Unidade:   ");
-//	prod.setUnidade(scan.next());
-//
-//	System.out.print("Preço:     ");
-//	prod.setPreco(scan.nextFloat());
-
-	//TESTE:
-	//Instancia banco de dados falso para teste
-	BancoDadosFake.inicia();
-	//pegar produto do banco:
-	Produto prod1 = (BancoDadosFake.produto.get(id));
-
-	return prod1;
-    }
 }

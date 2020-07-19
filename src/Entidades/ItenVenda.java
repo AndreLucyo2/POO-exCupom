@@ -1,5 +1,7 @@
 package Entidades;
 
+import java.math.BigDecimal;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,10 +17,9 @@ public class ItenVenda
     private int id;
     private Venda venda;
     private Produto produto;
-    private Float quantidade;
-    private Float precoUnitario;
-    private String unidade;
-
+    private BigDecimal quantidade;
+    private BigDecimal precoItem;
+    
     public int getId()
     {
 	return id;
@@ -49,34 +50,26 @@ public class ItenVenda
 	this.produto = produto;
     }
 
-    public Float getQuantidade()
+    public BigDecimal getQuantidade()
     {
 	return quantidade;
     }
 
-    public void setQuantidade(Float quantidade)
+    public void setQuantidade(BigDecimal quantidade)
     {
 	this.quantidade = quantidade;
     }
 
-    public Float getPrecoUnitario()
+    public BigDecimal getPrecoUnitario()
     {
-	return precoUnitario;
+	//Calcula preço:
+	precoItem = produto.getPreco().multiply(quantidade);			
+	return precoItem;
     }
 
-    public void setPrecoUnitario(Float precoUnitario)
+    public void setPrecoUnitario(BigDecimal precoUnitario)
     {
-	this.precoUnitario = precoUnitario;
-    }
-
-    public String getUnidade()
-    {
-	return unidade;
-    }
-
-    public void setUnidade(String unidade)
-    {
-	this.unidade = unidade;
+	this.precoItem = precoUnitario;
     }
 
 }
