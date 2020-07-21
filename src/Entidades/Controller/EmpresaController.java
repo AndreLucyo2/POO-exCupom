@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class EmpresaController
 {
 
-    public static Empresa getEmpresa()
+    public Empresa getEmpresa()
     {
 	//Teste:
 	Empresa empresa1 = new Empresa(1, "MERCADINHO", "91.384.685/0001-72", "123123", "RUA AFONSO CAMPOS", 123, "CENTRO", null);
@@ -29,7 +29,7 @@ public class EmpresaController
      *
      * @return
      */
-    public static Empresa criarEmpresa()
+    public Empresa criarEmpresa()
     {
 	Scanner scan = new Scanner(System.in);
 	Empresa empresa = new Empresa();
@@ -57,7 +57,7 @@ public class EmpresaController
 
 	System.out.print("Bairro:  ");
 	empresa.setBairro(scan.next());
-	
+
 	System.out.println("--------------------------------------------------");
 
 	return empresa;

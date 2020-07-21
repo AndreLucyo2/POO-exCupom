@@ -19,7 +19,7 @@ public class FormaPagamentoController
      *
      * @return
      */
-    public static FormaPagamento criarFormPagto(String cr)
+    public FormaPagamento criarFormPagto(String cr)
     {	
 	FormaPagamento frmPagot = new FormaPagamento();
 	frmPagot.setId(0);

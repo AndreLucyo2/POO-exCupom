@@ -22,7 +22,7 @@ public class PagamentoVendaController
      *
      * @return
      */
-    public static PagamentoVenda criarPagamentoVenda(Venda venda,FormaPagamento formaPagto ,BigDecimal valorPago)
+    public  PagamentoVenda criarPagamentoVenda(Venda venda,FormaPagamento formaPagto ,BigDecimal valorPago)
     {
 	
 	PagamentoVenda pagtoVenda = new PagamentoVenda();

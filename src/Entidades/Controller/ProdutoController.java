@@ -16,12 +16,14 @@ import java.util.Scanner;
  */
 public class ProdutoController
 {
+    
 
-    public static Produto criarProdutoT(int id)
+    public Produto criarProdutoT(int id)
     {
 	//TESTE:
 	//Instancia banco de dados falso para teste
 	BancoDadosFake.inicia();
+	
 	//pegar produto do banco:
 	Produto prod1 = (BancoDadosFake.produto.get(id));
 
@@ -33,7 +35,7 @@ public class ProdutoController
      *
      * @return
      */
-    public static Produto criarProduto()
+    public Produto criarProduto()
     {
 	Scanner scan = new Scanner(System.in);
 	Produto prod = new Produto();

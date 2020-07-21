@@ -5,8 +5,6 @@
  */
 package Entidades.Controller;
 
-import static Entidades.Controller.ItenVendaController.criarItemVenda;
-import static Entidades.Controller.ProdutoController.criarProdutoT;
 import Entidades.Empresa;
 import Entidades.ItenVenda;
 import Entidades.Venda;
@@ -29,8 +27,12 @@ public class VendaController
      *
      * @return
      */
-    public static Venda criarVenda(Empresa empresa, int numItens)
+    public  Venda criarVenda(Empresa empresa, int numItens)
     {
+	//Instancia os controllers:
+	ProdutoController produtoController = new ProdutoController();
+	ItenVendaController itenVendaController = new ItenVendaController();
+	
 	Venda venda = new Venda();
 	venda.setEmpresa(empresa);
 	venda.setId(1);
@@ -45,7 +47,7 @@ public class VendaController
 	    System.out.println("------------------------------------------------------------");
 	    ItenVenda item = new ItenVenda();
 
-	    item = criarItemVenda(venda, criarProdutoT(i), (i + 1));
+	    item =itenVendaController.criarItemVenda(venda, produtoController.criarProdutoT(i), (i + 1));
 
 	    itens.add(item);
 	}

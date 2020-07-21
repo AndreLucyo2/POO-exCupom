@@ -65,8 +65,8 @@ public class Servicos
 
 	String frmPagto = venda.getPagamentos().get(0).getFormaPagto().getNome();
 	BigDecimal vlpago = venda.getPagamentos().get(0).getValorPago();
-	BigDecimal troco = vltotalVenda.subtract(vlpago);
-	System.out.println("===============================================================");
+	BigDecimal troco = vlpago.subtract(vltotalVenda);
+	System.out.println();
 	System.out.println("===============================================================");
 	System.out.println("QTD. TOTAL DE ITENS                        " + venda.getItens().size());
 	System.out.println("VALOR TOTAL                              R$" + vltotalVenda.setScale(2, BigDecimal.ROUND_HALF_EVEN));

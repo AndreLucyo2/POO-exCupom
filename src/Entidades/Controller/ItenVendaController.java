@@ -23,7 +23,7 @@ public class ItenVendaController
      *
      * @return
      */
-    public static ItenVenda criarItemVenda(Venda venda, Produto produto, int indice)
+    public ItenVenda criarItemVenda(Venda venda, Produto produto, int indice)
     {
 	Scanner scan = new Scanner(System.in);
 	ItenVenda item = new ItenVenda();
